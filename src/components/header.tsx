@@ -18,7 +18,7 @@ export function Header() {
         <div className="flex items-center gap-3">
           <div className="h-8 w-8 rounded-full overflow-hidden ring-1 ring-border flex-shrink-0">
             <Image
-              src="/ausd-logo.jpg"
+              src="https://assets.coingecko.com/coins/images/39284/standard/AUSD_1024px.png?1764684132"
               alt="AUSD logo"
               width={32}
               height={32}
