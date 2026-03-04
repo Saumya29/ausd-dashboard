@@ -16,7 +16,7 @@ export function TotalSupplyCard() {
   if (isLoading || !data) {
     return (
       <Card className="border-border">
-        <CardContent className="py-12 text-center">
+        <CardContent className="py-8 text-center sm:py-12">
           <Skeleton className="mx-auto mb-3 h-3 w-28" />
           <Skeleton className="mx-auto mb-4 h-14 w-72" />
           <Skeleton className="mx-auto h-3 w-44" />
@@ -30,11 +30,11 @@ export function TotalSupplyCard() {
 
   return (
     <Card className="border-border overflow-hidden">
-      <CardContent className="py-12 text-center">
+      <CardContent className="py-8 text-center sm:py-12">
         <p className="mb-3 text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Total AUSD Supply
         </p>
-        <p className="text-5xl font-semibold tracking-tight text-foreground sm:text-6xl font-sans">
+        <p className="text-3xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl font-sans">
           ${formatNumber(data.totalSupply)}
         </p>
         <div className="mt-4 flex items-center justify-center gap-3 text-xs text-muted-foreground">

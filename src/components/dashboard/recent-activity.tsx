@@ -81,7 +81,7 @@ export function RecentActivity() {
             return (
               <div
                 key={`${event.txHash}-${event.type}`}
-                className="flex items-center justify-between rounded-lg bg-muted/40 px-4 py-3 hover:bg-muted/70 transition-colors group"
+                className="flex items-center justify-between rounded-lg bg-muted/40 px-3 py-2.5 sm:px-4 sm:py-3 hover:bg-muted/70 transition-colors group"
               >
                 <div className="flex items-center gap-3">
                   <span className={`flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium ${config.color}`}>
@@ -95,8 +95,10 @@ export function RecentActivity() {
                     </p>
                     <p className="text-xs text-muted-foreground">
                       {event.chainName}
-                      <span className="mx-1 text-border">·</span>
-                      <span className="font-mono">{truncateAddress(event.txHash)}</span>
+                      <span className="hidden sm:inline">
+                        <span className="mx-1 text-border">·</span>
+                        <span className="font-mono">{truncateAddress(event.txHash)}</span>
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -104,7 +106,7 @@ export function RecentActivity() {
                   href={event.explorerUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground/40 hover:text-foreground transition-colors opacity-0 group-hover:opacity-100"
+                  className="shrink-0 text-muted-foreground/40 hover:text-foreground transition-colors sm:opacity-0 sm:group-hover:opacity-100"
                   aria-label="View on explorer"
                 >
                   <ExternalLink className="h-3.5 w-3.5" />
