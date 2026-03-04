@@ -1,8 +1,28 @@
 "use client";
 
-import { Moon, Sun, DollarSign } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+
+function AgoraLogo({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 126 28"
+      preserveAspectRatio="xMinYMin meet"
+      className={className}
+    >
+      <path
+        d="m13.6 0v11.1c0 0.5-0.6 0.7-0.9 0.4l-5.2-5.1 2.2-5.7c0.1-0.4 0.5-0.7 0.9-0.7zm0 15.1v6.3c0 0.4-0.5 0.6-0.8 0.3l-8.1-7.6 2.4-6.2 5.9 5.8c0.4 0.4 0.6 0.9 0.6 1.4zm0 10.1v2.8h-12.5c-0.7 0-1.2-0.7-1-1.4l4.2-11 8.8 8.3c0.3 0.3 0.5 0.8 0.5 1.3zm4.3-25.2c0.5 0 0.8 0.3 1 0.7l2.2 5.7-5.2 5.1c-0.4 0.3-0.9 0.1-0.9-0.4v-11.1zm-3 15.1c0-0.5 0.2-1 0.6-1.4l5.9-5.8 2.4 6.2-8.1 7.6c-0.3 0.3-0.8 0.1-0.8-0.3v-6.3zm0 10.1c0-0.5 0.2-1 0.6-1.3l8.7-8.3 4.2 11c0.3 0.7-0.2 1.4-0.9 1.4h-12.6v-2.8z"
+        className="fill-current"
+      />
+      <path
+        d="m125.9 22.8l-3.2-0.1-1.6-4.2h-7.8l-1.7 4.2h-3.1l6.9-17.4 3.7-0.1zm-8.7-14.3l-2.9 7.4h5.7zm-21 14.3h-3v-17.5h7.9c3.1 0 5.5 2 5.5 4.8 0 2.2-1.1 3.8-3 4.4 2 0 2.7 0.8 2.7 2.5v5.8h-3v-5.1c0-1.3-0.4-1.6-1.7-1.6h-5.4zm0-14.9v5.4h4.2c2.1 0 3.2-1.1 3.2-2.8 0-1.7-1.1-2.6-3.2-2.6zm-15 15.1c-4.9 0-8.4-3.4-8.4-9 0-5.6 3.5-9 8.4-9 4.9 0 8.5 3.4 8.5 9 0 5.6-3.6 9-8.5 9zm-0.1-2.7h0.3c3.1 0 5.2-2.3 5.2-6.3 0-4-2.1-6.3-5.2-6.3h-0.3c-3.2 0-5.3 2.3-5.3 6.3 0 4 2.1 6.3 5.3 6.3zm-18.8 2.7c-5.1 0-8.4-3.8-8.4-9 0-5.2 3.4-9 8.6-9 4.5 0 7.1 2.6 7.4 6.2h-3c-0.3-2.1-1.7-3.5-4.2-3.5h-0.3c-3.3 0-5.5 2.4-5.5 6.3 0 3.9 2.2 6.3 5.5 6.3h0.3c2.5 0 4.4-1.5 4.7-3.6v-0.3h-4.9v-2.7h5.4c1.4 0 2.1 0.8 2.1 2.2v6.9h-2.6v-1.9c-0.8 1-2.5 2.1-5.1 2.1zm-9.4-0.2h-3.2l-1.6-4.3h-7.8l-1.7 4.3h-3.1l6.9-17.5h3.7zm-8.8-14.4l-2.8 7.4h5.7z"
+        className="fill-current"
+      />
+    </svg>
+  );
+}
 
 export function Header() {
   const { theme, setTheme } = useTheme();
@@ -11,35 +31,55 @@ export function Header() {
   useEffect(() => setMounted(true), []);
 
   return (
-    <header className="border-b border-border bg-card">
-      <div className="container mx-auto flex items-center justify-between px-4 py-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <DollarSign className="h-5 w-5" />
-          </div>
-          <div>
-            <h1 className="text-lg font-semibold tracking-tight">
-              AUSD Multi-Chain Dashboard
-            </h1>
-            <p className="text-xs text-muted-foreground">
-              by <span className="font-medium">Agora</span>
-            </p>
+    <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-10">
+      <div className="container mx-auto flex items-center justify-between px-6 py-3">
+        {/* Brand */}
+        <div className="flex items-center gap-4">
+          <a
+            href="https://www.agora.finance"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Agora Homepage"
+          >
+            <AgoraLogo className="h-6 w-auto text-foreground" />
+          </a>
+          {/* Divider + page context */}
+          <div className="hidden sm:flex items-center gap-3">
+            <div className="h-4 w-px bg-border" />
+            <span className="text-xs text-muted-foreground font-sans tracking-wide">
+              AUSD Dashboard
+            </span>
           </div>
         </div>
 
-        {mounted && (
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="rounded-md p-2 hover:bg-accent transition-colors"
-            aria-label="Toggle theme"
+        {/* Actions */}
+        <div className="flex items-center gap-2">
+          <a
+            href="https://www.agora.finance/product/ausd"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors font-sans"
           >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </button>
-        )}
+            agora.finance
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+
+          {mounted && (
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="rounded-lg p-2 hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+            </button>
+          )}
+        </div>
       </div>
     </header>
   );
