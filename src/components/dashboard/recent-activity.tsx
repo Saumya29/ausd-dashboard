@@ -1,25 +1,27 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePolling } from "@/hooks/use-polling";
 import { formatUSD, truncateAddress } from "@/lib/format";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, ArrowUpRight, ArrowDownRight, ArrowRight } from "lucide-react";
 import type { EventsResponse, EventType } from "@/lib/types";
 
-const EVENT_CONFIG: Record<EventType, { label: string; className: string }> = {
+const EVENT_CONFIG: Record<EventType, { label: string; icon: React.ReactNode; color: string }> = {
   mint: {
-    label: "MINT",
-    className: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
+    label: "Mint",
+    icon: <ArrowUpRight className="h-3.5 w-3.5" />,
+    color: "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50",
   },
   burn: {
-    label: "BURN",
-    className: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+    label: "Burn",
+    icon: <ArrowDownRight className="h-3.5 w-3.5" />,
+    color: "text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50",
   },
   transfer: {
-    label: "TRANSFER",
-    className: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+    label: "Transfer",
+    icon: <ArrowRight className="h-3.5 w-3.5" />,
+    color: "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50",
   },
 };
 
@@ -31,13 +33,15 @@ export function RecentActivity() {
 
   if (isLoading || !data) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
+      <Card className="border-border">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
+            Recent Activity
+          </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-2">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-12 w-full" />
+            <Skeleton key={i} className="h-14 w-full" />
           ))}
         </CardContent>
       </Card>
@@ -46,13 +50,15 @@ export function RecentActivity() {
 
   if (data.events.length === 0) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
+      <Card className="border-border">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
+            Recent Activity
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">
-            No recent mint, burn, or large transfer events found.
+          <p className="text-sm text-muted-foreground py-4 text-center">
+            No recent mint, burn, or transfer events found.
           </p>
         </CardContent>
       </Card>
@@ -60,12 +66,14 @@ export function RecentActivity() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Recent Activity</CardTitle>
+    <Card className="border-border">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
+          Recent Activity
+        </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-3">
+        <div className="space-y-2">
           {data.events.map((event) => {
             const config = EVENT_CONFIG[event.type];
             const sign = event.type === "mint" ? "+" : event.type === "burn" ? "-" : "";
@@ -73,18 +81,22 @@ export function RecentActivity() {
             return (
               <div
                 key={`${event.txHash}-${event.type}`}
-                className="flex items-center justify-between rounded-lg border border-border p-3"
+                className="flex items-center justify-between rounded-lg bg-muted/40 px-4 py-3 hover:bg-muted/70 transition-colors group"
               >
                 <div className="flex items-center gap-3">
-                  <Badge variant="secondary" className={config.className}>
+                  <span className={`flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium ${config.color}`}>
+                    {config.icon}
                     {config.label}
-                  </Badge>
+                  </span>
                   <div>
-                    <p className="text-sm font-medium">
-                      {sign}{formatUSD(event.valueFormatted)} AUSD
+                    <p className="text-sm font-medium text-foreground tabular-nums">
+                      {sign}{formatUSD(event.valueFormatted)}
+                      <span className="ml-1 text-muted-foreground font-normal">AUSD</span>
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      on {event.chainName} · {truncateAddress(event.txHash)}
+                      {event.chainName}
+                      <span className="mx-1 text-border">·</span>
+                      <span className="font-mono">{truncateAddress(event.txHash)}</span>
                     </p>
                   </div>
                 </div>
@@ -92,9 +104,10 @@ export function RecentActivity() {
                   href={event.explorerUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-muted-foreground/40 hover:text-foreground transition-colors opacity-0 group-hover:opacity-100"
+                  aria-label="View on explorer"
                 >
-                  <ExternalLink className="h-4 w-4" />
+                  <ExternalLink className="h-3.5 w-3.5" />
                 </a>
               </div>
             );

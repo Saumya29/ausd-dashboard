@@ -7,14 +7,12 @@ import { ChainHealth } from "@/components/dashboard/chain-health";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-background">
       <Header />
 
-      <main className="container mx-auto flex-1 space-y-6 px-4 py-8">
-        {/* Hero — total supply */}
+      <main className="container mx-auto flex-1 px-6 py-10 space-y-6 max-w-6xl">
         <TotalSupplyCard />
 
-        {/* Middle row — breakdown + health */}
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <ChainBreakdown />
@@ -24,7 +22,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Bottom — recent activity */}
         <RecentActivity />
       </main>
 
