@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { usePolling } from "@/hooks/use-polling";
 import { formatUSD } from "@/lib/format";
 import type { SupplyResponse } from "@/lib/types";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
 
 export function ChainBreakdown() {
   const { data, isLoading } = usePolling<SupplyResponse>({
@@ -40,37 +40,35 @@ export function ChainBreakdown() {
       <CardContent>
         <div className="flex flex-col sm:flex-row items-center gap-8">
           {/* Donut chart */}
-          <div className="shrink-0 h-36 w-36 sm:h-44 sm:w-44">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={data.chains}
-                  dataKey="supplyFormatted"
-                  nameKey="chainName"
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={52}
-                  outerRadius={76}
-                  strokeWidth={2}
-                  stroke="var(--background)"
-                >
-                  {data.chains.map((chain) => (
-                    <Cell key={chain.chainId} fill={chain.color} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  formatter={(value) => [formatUSD(value as number), "Supply"]}
-                  contentStyle={{
-                    backgroundColor: "var(--card)",
-                    border: "1px solid var(--border)",
-                    borderRadius: "8px",
-                    color: "var(--card-foreground)",
-                    fontSize: "12px",
-                    boxShadow: "0 4px 12px rgb(0 0 0 / 0.08)",
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+          <div className="shrink-0">
+            <PieChart width={176} height={176}>
+              <Pie
+                data={data.chains}
+                dataKey="supplyFormatted"
+                nameKey="chainName"
+                cx="50%"
+                cy="50%"
+                innerRadius={52}
+                outerRadius={76}
+                strokeWidth={2}
+                stroke="var(--background)"
+              >
+                {data.chains.map((chain) => (
+                  <Cell key={chain.chainId} fill={chain.color} />
+                ))}
+              </Pie>
+              <Tooltip
+                formatter={(value) => [formatUSD(value as number), "Supply"]}
+                contentStyle={{
+                  backgroundColor: "var(--card)",
+                  border: "1px solid var(--border)",
+                  borderRadius: "8px",
+                  color: "var(--card-foreground)",
+                  fontSize: "12px",
+                  boxShadow: "0 4px 12px rgb(0 0 0 / 0.08)",
+                }}
+              />
+            </PieChart>
           </div>
 
           {/* Bar breakdown */}
