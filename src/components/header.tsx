@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun, DollarSign } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
@@ -11,32 +11,28 @@ export function Header() {
   useEffect(() => setMounted(true), []);
 
   return (
-    <header className="border-b border-border bg-card">
-      <div className="container mx-auto flex items-center justify-between px-4 py-4">
+    <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-10">
+      <div className="container mx-auto flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <DollarSign className="h-5 w-5" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+            <span className="text-xs font-bold text-primary-foreground font-mono tracking-tight">A$</span>
           </div>
           <div>
-            <h1 className="text-lg font-semibold tracking-tight">
-              AUSD Multi-Chain Dashboard
-            </h1>
-            <p className="text-xs text-muted-foreground">
-              by <span className="font-medium">Agora</span>
-            </p>
+            <span className="text-sm font-semibold tracking-tight text-foreground">AUSD Dashboard</span>
+            <span className="ml-2 text-xs text-muted-foreground hidden sm:inline">by Agora</span>
           </div>
         </div>
 
         {mounted && (
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="rounded-md p-2 hover:bg-accent transition-colors"
+            className="rounded-lg p-2 hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
+              <Sun className="h-4 w-4" />
             ) : (
-              <Moon className="h-5 w-5" />
+              <Moon className="h-4 w-4" />
             )}
           </button>
         )}
