@@ -2,6 +2,12 @@
 
 Real-time dashboard tracking [Agora's](https://agora.finance) AUSD stablecoin supply and activity across 8 EVM chains.
 
+## Demo
+
+<video src="demo.mp4" width="100%" autoplay loop muted playsinline></video>
+
+![Demo](demo.gif)
+
 ## Chains Tracked
 
 | Chain | Supply | Explorer |
